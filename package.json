@@ -1,0 +1,27 @@
+{
+  "name": "mood_of_twitter",
+  "version": "1.0.0",
+  "description": "Site that displays the most commonly used emoji on twitter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rs222kn/Mood_Of_Twitter.git"
+  },
+  "author": "richard soderman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rs222kn/Mood_Of_Twitter/issues"
+  },
+  "homepage": "https://github.com/rs222kn/Mood_Of_Twitter#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "clear": "0.0.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "socket.io": "^1.4.8",
+    "twitter-public-stream": "0.0.2"
+  }
+}
