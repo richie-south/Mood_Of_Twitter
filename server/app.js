@@ -17,14 +17,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const router = require('express').Router();
 
-const port = 3334;
+const port = 9090;
 server.listen(port, function(){
     console.log('Listening on port ', port);
 });
 
-app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname,'/public/layouts'));
-
+app.set('views', path.join(__dirname,'/public'));
+app.set('json spaces', 2);
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use('/', router);

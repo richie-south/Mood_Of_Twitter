@@ -21,6 +21,7 @@
     "clear": "0.0.1",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
+    "oauth": "^0.9.14",
     "socket.io": "^1.4.8",
     "twitter-public-stream": "0.0.2"
   }

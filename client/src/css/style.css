@@ -1,0 +1,74 @@
+
+.left{
+    float:left;
+}
+
+.symbolWrap{
+    width: 100%;
+    text-align: center;
+    line-height: 64px;
+    font-size: 24px;
+    transition: font-size 300ms;
+}
+
+.symbolWrapBox{
+    background-color: #f5f7fa;
+    color: #69707a;
+}
+
+.symboTagHolder{
+    text-align: center;
+}
+
+.symbolTextWrap{
+    text-align: center;
+}
+
+.symbolWrapMax{
+    font-size: 8em;
+}
+
+.userNameInput{
+    max-width: 700px;
+    text-align: center;
+}
+
+
+/* Animations */
+
+.pop-appear {
+    -webkit-animation:pop-in 0.8s;
+     -moz-animation:pop-in 0.8s;
+     -ms-animation:pop-in 0.8s;
+}
+
+.pop-appear.pop-appear-active {
+   opacity: 1;
+   transition: opacity 500ms ease-in;
+}
+
+
+
+.pop-leave {
+    -webkit-animation:pop-in 0.5s backwards;
+     -moz-animation:pop-in 0.5s backwards;
+     -ms-animation:pop-in 0.5s backwards;
+}
+
+.pop-leave.pop-leave-active {
+   opacity: 0.01;
+   transition: opacity 500ms ease-in;
+}
+
+@-webkit-keyframes pop-in {
+    0% { opacity: 0; -webkit-transform: scale(0.5); }
+    100% { opacity: 1; -webkit-transform: scale(1); }
+}
+@-moz-keyframes pop-in {
+    0% { opacity: 0; -moz-transform: scale(0.5); }
+    100% { opacity: 1; -moz-transform: scale(1); }
+}
+@keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
