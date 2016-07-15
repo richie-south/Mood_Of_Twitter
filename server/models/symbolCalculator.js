@@ -9,11 +9,12 @@ const regexp = new RegExp(symbols, 'gi');
 /**
  * [adds symbols to array and sorts it by most frequently used ]
  * @param  {[object]} symbolsHolder [contains symbols and value of symbols]
+ * @param  {[boolena]} sort          [decides of return result should be sorted in dec]
  * @param  {[number]} node          [node of symbolsHolder]
  * @param  {[array]} result         [array of sorted symbols]
  * @return {[array]}                [array of sorted symbols]
  */
-const sortSymbols = (symbolsHolder, sort = false, node = 0, result = []) => {
+const doObjectToArray = (symbolsHolder, sort = false, node = 0, result = []) => {
 
     if(Object.keys(symbolsHolder).length === node){
         if(sort){
@@ -35,7 +36,7 @@ const sortSymbols = (symbolsHolder, sort = false, node = 0, result = []) => {
     let value = symbolsHolder[Object.keys(symbolsHolder)[node]];
     result.push({ symbol: Object.keys(symbolsHolder)[node], occurs: value});
 
-    return sortSymbols(symbolsHolder, sort, node+1, result);
+    return doObjectToArray(symbolsHolder, sort, node+1, result);
 };
 
 /**
@@ -45,7 +46,7 @@ const sortSymbols = (symbolsHolder, sort = false, node = 0, result = []) => {
  * @return {[array]}       [matched values]
  */
 const matchWithRegex = (regex) => (text) => {
-    let matchedSymbols = text.match(regex);
+    const matchedSymbols = text.match(regex);
     if(matchedSymbols === null){
         throw 'No symbols matched';
     }
@@ -98,8 +99,13 @@ class App {
             }
 
             const [newSet, newSymbolsholder] = addIfUniq(matchedSymbols, mySet, symbolsHolder);
-            this.result = sortSymbols(newSymbolsholder, sort);
-            return this.symbolCounter(counter+=1, mySet, newSymbolsholder);
+            if(this.nrOfTweetsCounted > 10000){
+                this.nrOfTweetsCounted = 0;
+                return this.symbolCounter();
+            }
+
+            this.result = doObjectToArray(newSymbolsholder, sort);
+            return this.symbolCounter(counter+=1, newSet, newSymbolsholder);
         };
     }
 
@@ -112,4 +118,5 @@ class App {
     }
 
 }
+
 module.exports = App;
