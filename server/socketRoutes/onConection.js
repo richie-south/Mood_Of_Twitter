@@ -8,6 +8,7 @@ const Stream = require('twitter-public-stream');
 const EventEmitter = require('events');
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
+
 let isStreamOn = false;
 
 const stream = new Stream({
@@ -30,10 +31,8 @@ const stopStream = (stream) => {
 
 const symbolCalculator = new SymbolCalculator();
 let symbolCounter = symbolCalculator.symbolCounter();
-let i = 0;
 stream.on('data', (json) => {
-    console.log(i++);
-    symbolCounter(json.text);
+    symbolCounter = symbolCounter(json.text);
     const usedSymbols = symbolCalculator.getUsedSymbols();
     const nrOfTweetsCounted = symbolCalculator.getNumberOfTweetsCalculated();
 
@@ -52,7 +51,7 @@ stream.on('close', () => {
 });
 
 stream.on('error', (e) => {
-    console.log('oups error', e);
+    console.log('Oups error', e);
     try {
         stopStream(stream);
     } catch (e) {
@@ -68,7 +67,7 @@ const doStream = (clients, onlyStop = false) => {
             startStream(stream);
         }
     } catch (e) {
-
+        console.log('Oups an error: ', e);
     }
 };
 
