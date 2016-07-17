@@ -2,6 +2,8 @@
 
 const config = require('../config/config');
 const SymbolCalculator = require('../models/symbolCalculator');
+const SymbolCollector = require('../models/symbolCollector');
+
 const clear = require('clear');
 const Stream = require('twitter-public-stream');
 
@@ -30,11 +32,13 @@ const stopStream = (stream) => {
 };
 
 const symbolCalculator = new SymbolCalculator();
-let symbolCounter = symbolCalculator.symbolCounter();
+const symbolCollector = new SymbolCollector();
 stream.on('data', (json) => {
-    symbolCounter = symbolCounter(json.text);
-    const usedSymbols = symbolCalculator.getUsedSymbols();
-    const nrOfTweetsCounted = symbolCalculator.getNumberOfTweetsCalculated();
+    symbolCollector.add(
+        symbolCalculator.getMostUsedSymbol(json.text));
+
+    const usedSymbols = symbolCollector.getCollectionSorted();
+    const nrOfTweetsCounted = symbolCalculator.getCounted();
 
     myEmitter.emit('symbols', {
         symbols: usedSymbols,
