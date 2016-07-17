@@ -3,6 +3,7 @@
 const config = require('../config/config');
 const router = require('express').Router();
 const SymbolCalculator = require('../models/symbolCalculator');
+const SymbolCollector = require('../models/symbolCollector');
 const OAuth = require('oauth');
 const path = require('path');
 
@@ -32,14 +33,15 @@ router.get('/userMood/:name', (req, res) => {
             });
         }
         const symbolCalculator = new SymbolCalculator();
+        const symbolCollector = new SymbolCollector();
         const parsedData = JSON.parse(data);
-        const symbolCounter = symbolCalculator.symbolCounter();
 
         parsedData
             .map(a => a.text)
-            .forEach(a => symbolCounter(a, true));
-        const usedSymbols = symbolCalculator.getUsedSymbols();
-        const nrOfTweetsCounted = symbolCalculator.getNumberOfTweetsCalculated();
+            .forEach(a => symbolCollector.add(
+                symbolCalculator.getMostUsedSymbol(a)));
+        const usedSymbols = symbolCollector.getCollectionSorted();
+        const nrOfTweetsCounted = symbolCalculator.getCounted();
 
         res.json({
             symbols: usedSymbols,
